@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define newline printf("\n\n")
 using namespace std;
 
 typedef struct MyNode {
@@ -217,8 +218,7 @@ void leaf(Node *root) {
 	}
 }
 
-
-//Problem 1
+//soal 1
 void printDepthFirst (Node *root) {
     if (root != nullptr) {
 		printDepthFirst(root -> left);
@@ -227,25 +227,28 @@ void printDepthFirst (Node *root) {
 	}
 }
 
-// Problem 2
-void printKthLevel(Node *root, int k, int level) {
-    if (root!=nullptr) {
-        if (level>=k) {
-            printf("%d ",root->data);
-            return;
-        }
-        printKthLevel(root->left, k, level+1);
-        printKthLevel(root->right, k, level+1);
-    }
+// soal 2
+void printKthLevel(Node *root, int k) {
+	static int lvl = 0;
+	if (root) {
+		if (lvl == k) {
+			printf("%d ", root->data, lvl);
+		} else {
+			lvl++;
+			printKthLevel(root->left, k);
+			printKthLevel(root->right, k);
+			lvl--;
+		}
+	}
 }
 
-// Problem 3
+// soal 3
 int sumOfNodes(Node *root) {
     if (root==nullptr) return 0;
     return root->data+sumOfNodes(root->left)+sumOfNodes(root->right);
 }
 
-//Problem 4
+//soal 4
 void triple (Node *root) {
     if (root == nullptr) return;
     root->data*=3;
@@ -253,7 +256,7 @@ void triple (Node *root) {
     triple(root->right);
 }
 
-//Problem 5
+//soal 5
 void mirror (Node *root) {
     if (root == nullptr) return;
     Node *tmp;
@@ -265,12 +268,34 @@ void mirror (Node *root) {
     root->right=tmp;
 }
 
+// soal 8
+Node *findParent(Node *root, int *childData) {
+	static Node *parent = root;
+	static bool flag = 0;
+	if(root) {
+		// printf("%d %d\n", root->data, *childData);
+		if(root->data == *childData) {
+			flag = 1;
+		}
+		if(!flag){
+			parent = root;
+			if(*childData < root->data) {
+				// printf("left\n");
+				findParent(root->left, childData);
+			} else if(*childData > root->data) {
+				// printf("right\n");
+				findParent(root->right, childData);
+			}
+		}
+	}
+	return parent;
+}
 
 int main() {
 	printf("Create a root, it's an empty node...\n");
 	Node *root;
 	root = nullptr;
-    printf("\n\nClear the tree ...\n");
+    printf("Clear the tree ...\n");
 	clear(&root);
 	printf("Build a tree ...\n");
 	insert(&root, 6);
@@ -281,21 +306,44 @@ int main() {
 	insert(&root, 7);
 	insert(&root, 8);
 	insert(&root, 9);
+
+	// Soal Quiz
+	// soal 1
+	newline;
 	printDepthFirst(root);
-    printf("Input k: ");
-    int k;scanf("%d",&k);
+	newline;
+
+	// soal 2
+	printf("Input for Kth level nodes (input for k): ");
+    int k;scanf("%d", &k);
     printf("Printing Kth level nodes: ");
-    printKthLevel(root, k, 0);
-	printf("\n");
+    printKthLevel(root, k);
+	newline;
+
+	// soal 3
     int sum=sumOfNodes(root);
-    printf("The sum of current nodes: %d\n",sum);
+    printf("The sum of current nodes: %d",sum);
+	newline;
+
+	// soal 4
     triple(root);
     sum=sumOfNodes(root);
-    printf("The sum of current nodes: %d\n",sum);
+    printf("The sum of current nodes: %d",sum);
+	newline;
+
+	// soal 5
     printf("Mirroring tree\nPrinting Depth First Traversal of the mirrored tree: \n");
     mirror(root);
     printDepthFirst(root);
+	newline;
 
+	mirror(root);
 
+	// soal 8
+	printf("Enter Child Data: ");
+	int child_data; scanf("%d", &child_data);
+	Node* parent_node = findParent(root, &child_data);
+	printf("%d", parent_node->data);
+	newline;
  	return 0;
 }
