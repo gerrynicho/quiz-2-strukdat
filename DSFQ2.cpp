@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <memory>
-#include <functional>
 #define newline printf("\n\n")
 using namespace std;
 
@@ -424,7 +422,7 @@ int main() {
 	printf("Input for k-th level nodes: ");
     int k;
 	scanf("%d", &k);
-    printf("Printing k-th level nodes:\n");
+    printf("Printing k-th level nodes: ");
     printKthLevel(root, k);
 	newline;
 
