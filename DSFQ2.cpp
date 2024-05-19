@@ -462,6 +462,9 @@ int main() {
 	delNode(root, 1);
 	newline;
 
+	inOrder(root);
+	newline;
+	
 	// Problem 8
 	printf("Enter child data: ");
 	int child_data;
