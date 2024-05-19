@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory>
 #define newline printf("\n\n")
 using namespace std;
 
@@ -232,7 +233,7 @@ void printKthLevel(Node *root, int k) {
 	static int lvl = 0;
 	if (root) {
 		if (lvl == k) {
-			printf("%d ", root->data, lvl);
+			printf("%d ", root->data);
 		} else {
 			lvl++;
 			printKthLevel(root->left, k);
@@ -256,40 +257,56 @@ void triple (Node *root) {
     triple(root->right);
 }
 
-//soal 5
+// soal 5
+// NOTE: this functions needs the <memory> library in order to work properly
+
+// - we need to know whose the parent node
+// - we need to traverse the root node
+// - parameter root needs to be the original bst
+// - traverse the mirrored bst using a static 
+// └──> static auto origin = root;
+
 void mirror (Node *root) {
-    if (root == nullptr) return;
-    Node *tmp;
-    tmp=nullptr;
-    mirror(root->left);
-    mirror(root->right);
-    tmp=root->left;
-    root->left=root->right;
-    root->right=tmp;
+	// static std::shared_ptr<Node> root;
+	// static auto origin = root;
 }
 
 // soal 8
-Node *findParent(Node *root, int *childData) {
-	static Node *parent = root;
-	static bool flag = 0;
-	if(root) {
-		// printf("%d %d\n", root->data, *childData);
-		if(root->data == *childData) {
-			flag = 1;
-		}
-		if(!flag){
+Node* findParent(Node* root, int* childData) {
+	static Node* parent = nullptr;
+	if (root) {
+		if(root->data > *childData){
 			parent = root;
-			if(*childData < root->data) {
-				// printf("left\n");
-				findParent(root->left, childData);
-			} else if(*childData > root->data) {
-				// printf("right\n");
-				findParent(root->right, childData);
-			}
+			findParent(root->left, childData);
+		} else if (root->data < *childData) {
+			parent = root;
+			findParent(root->right, childData);
+		} else {
+			return parent;
 		}
+		return parent;
 	}
-	return parent;
+	return nullptr;
 }
+
+// soal 9
+Node* findChild(Node* root, int parentData) {
+    auto node = search(root, parentData);
+    auto res = new Node;
+	if (node->left && node->right) {
+		res = node->left;
+		res->right = node->right;
+		// printf("%d\n", new_node->right->data);
+	} else if (node->left) {
+		res = node->left;
+	} else if (node->right) {
+		res = node->right;
+	} else {
+		res = nullptr;
+	}
+	return res;
+}
+
 
 int main() {
 	printf("Create a root, it's an empty node...\n");
@@ -325,7 +342,7 @@ int main() {
     printf("The sum of current nodes: %d",sum);
 	newline;
 
-	// soal 4
+	// // soal 4
     triple(root);
     sum=sumOfNodes(root);
     printf("The sum of current nodes: %d",sum);
@@ -337,13 +354,24 @@ int main() {
     printDepthFirst(root);
 	newline;
 
-	mirror(root);
-
 	// soal 8
 	printf("Enter Child Data: ");
 	int child_data; scanf("%d", &child_data);
 	Node* parent_node = findParent(root, &child_data);
-	printf("%d", parent_node->data);
+	if(parent_node) {
+		printf("%d", parent_node->data);
+	} else {
+		printf("Node has no parent/No such node");
+	}
 	newline;
+
+	// soal 9
+	printf("Enter Parent Data: ");
+	int parent_data; scanf("%d", &parent_data);
+	Node* child_node = findChild(root, parent_data);
+	while (child_node) {
+		printf("Child Node: %d\n", child_node->data);
+		child_node = child_node->right;
+	}
  	return 0;
 }
