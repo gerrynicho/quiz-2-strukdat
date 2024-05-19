@@ -219,7 +219,7 @@ void leaf(Node *root) {
 	}
 }
 
-//soal 1
+// Problem 1
 void printDepthFirst (Node *root) {
     if (root != nullptr) {
 		printDepthFirst(root -> left);
@@ -228,7 +228,7 @@ void printDepthFirst (Node *root) {
 	}
 }
 
-// soal 2
+// Problem 2
 void printKthLevel(Node *root, int k) {
 	static int lvl = 0;
 	if (root) {
@@ -243,13 +243,13 @@ void printKthLevel(Node *root, int k) {
 	}
 }
 
-// soal 3
+// Problem 3
 int sumOfNodes(Node *root) {
     if (root==nullptr) return 0;
     return root->data+sumOfNodes(root->left)+sumOfNodes(root->right);
 }
 
-//soal 4
+// Problem 4
 void triple (Node *root) {
     if (root == nullptr) return;
     root->data*=3;
@@ -257,7 +257,7 @@ void triple (Node *root) {
     triple(root->right);
 }
 
-// soal 5
+// Problem 5
 // NOTE: this functions needs the <memory> library in order to work properly
 
 // - we need to know whose the parent node
@@ -271,7 +271,51 @@ void mirror (Node *root) {
 	// static auto origin = root;
 }
 
-// soal 8
+// Problem 6
+int isBalancedHelper(Node *root) {
+    int left = height(root->left);
+    int right = height(root->right);
+    if(abs(left - right) <= 1) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+// Problem 7
+Node *delNode(Node *root, int delData) {
+    if(root == nullptr) {
+        return nullptr;
+    }
+
+    if(delData < root->data) {
+        root->left = delNode(root->left, delData);
+    }
+	else if(delData > root->data) {
+        root->right = delNode(root->right, delData);
+    }
+	else {
+        if(root->left == nullptr) {
+            Node *temp = root;
+            root = root->right;
+            free(temp);
+        }
+		else if(root->right == nullptr) {
+            Node *temp = root;
+            root = root->left;
+            free(temp);
+        }
+		else {
+            Node *temp = min(root->right);
+            root->data = temp->data;
+            root->right = delNode(root->right, temp->data);
+        }
+    }
+    return root;
+}
+
+// Problem 8
 Node* findParent(Node* root, int* childData) {
 	static Node* parent = nullptr;
 	if (root) {
@@ -289,14 +333,13 @@ Node* findParent(Node* root, int* childData) {
 	return nullptr;
 }
 
-// soal 9
+// Problem 9
 Node* findChild(Node* root, int parentData) {
     auto node = search(root, parentData);
     auto res = new Node;
 	if (node->left && node->right) {
 		res = node->left;
 		res->right = node->right;
-		// printf("%d\n", new_node->right->data);
 	} else if (node->left) {
 		res = node->left;
 	} else if (node->right) {
@@ -307,14 +350,49 @@ Node* findChild(Node* root, int parentData) {
 	return res;
 }
 
+// Problem 10
+void convertToDLLHelper(Node *root, Node **head, Node **prev) {
+    if(root == nullptr) {
+        return;
+    }
+
+    convertToDLLHelper(root->left, head, prev);
+
+    if(*prev == nullptr) {
+        *head = root;
+    }
+	else {
+        root->left = *prev;
+        (*prev)->right = root;
+    }
+    *prev = root;
+
+    convertToDLLHelper(root->right, head, prev);
+}
+
+Node *convertToDLL(Node *root) {
+    Node *head = nullptr;
+    Node *prev = nullptr;
+    convertToDLLHelper(root, &head, &prev);
+    return head;
+}
+
+void preOrderDLL(Node *head) {
+    Node *current = head;
+    while(current != nullptr) {
+        printf("%d ", current->data);
+        current = current->right;
+    }
+}
+
 
 int main() {
 	printf("Create a root, it's an empty node...\n");
 	Node *root;
 	root = nullptr;
-    printf("Clear the tree ...\n");
+    printf("Clear the tree...\n");
 	clear(&root);
-	printf("Build a tree ...\n");
+	printf("Build a tree...\n");
 	insert(&root, 6);
 	insert(&root, 3);
 	insert(&root, 10);
@@ -324,54 +402,80 @@ int main() {
 	insert(&root, 8);
 	insert(&root, 9);
 
-	// Soal Quiz
-	// soal 1
-	newline;
+	// Quiz Problems
+	// Problem 1
+	printf("\nPrinting depth first traversal of the tree:\n");
 	printDepthFirst(root);
 	newline;
 
-	// soal 2
-	printf("Input for Kth level nodes (input for k): ");
-    int k;scanf("%d", &k);
-    printf("Printing Kth level nodes: ");
+	// Problem 2
+	printf("Input for k-th level nodes: ");
+    int k;
+	scanf("%d", &k);
+    printf("Printing k-th level nodes:\n");
     printKthLevel(root, k);
 	newline;
 
-	// soal 3
-    int sum=sumOfNodes(root);
-    printf("The sum of current nodes: %d",sum);
+	// Problem 3
+    int sum = sumOfNodes(root);
+    printf("The sum of current nodes: %d", sum);
 	newline;
 
-	// // soal 4
+	// Problem 4
+	printf("Tripling the value of the nodes...\n");
     triple(root);
-    sum=sumOfNodes(root);
-    printf("The sum of current nodes: %d",sum);
+    sum = sumOfNodes(root);
+    printf("The sum of current nodes: %d", sum);
 	newline;
 
-	// soal 5
-    printf("Mirroring tree\nPrinting Depth First Traversal of the mirrored tree: \n");
+	// Problem 5
+    printf("Mirroring tree\nPrinting depth first traversal of the mirrored tree: \n");
     mirror(root);
     printDepthFirst(root);
 	newline;
 
-	// soal 8
-	printf("Enter Child Data: ");
-	int child_data; scanf("%d", &child_data);
-	Node* parent_node = findParent(root, &child_data);
+	// Problem 6
+	printf("Checking if the tree is balanced...\n");
+	if(isBalancedHelper(root)) {
+		printf("The tree is balanced");
+	}
+	else {
+		printf("The tree is not balanced");
+	}
+	newline;
+
+	// Problem 7
+	printf("Deleting some nodes of the tree...");
+	delNode(root, 3);
+	delNode(root, 1);
+	newline;
+
+	// Problem 8
+	printf("Enter child data: ");
+	int child_data;
+	scanf("%d", &child_data);
+	Node *parent_node = findParent(root, &child_data);
 	if(parent_node) {
-		printf("%d", parent_node->data);
+		printf("The parent data of the child: %d", parent_node->data);
 	} else {
 		printf("Node has no parent/No such node");
 	}
 	newline;
 
-	// soal 9
-	printf("Enter Parent Data: ");
-	int parent_data; scanf("%d", &parent_data);
-	Node* child_node = findChild(root, parent_data);
-	while (child_node) {
-		printf("Child Node: %d\n", child_node->data);
+	// Problem 9
+	printf("Enter parent data: ");
+	int parent_data;
+	scanf("%d", &parent_data);
+	Node *child_node = findChild(root, parent_data);
+	while(child_node) {
+		printf("The child data of the parent: %d\n", child_node->data);
 		child_node = child_node->right;
 	}
+	newline;
+
+	// Problem 10
+	Node *head = convertToDLL(root);
+	preOrderDLL(head);
+
  	return 0;
 }
