@@ -1,4 +1,4 @@
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/600f87e5-720a-4808-a648-070590e4d35d)# quiz-2-strukdat
+# quiz-2-strukdat
 
 ### Problem 1
 1. Write a recursive function to print the depth-first traversal of a tree, i.e., choosing left
