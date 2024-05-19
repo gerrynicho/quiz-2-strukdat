@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory>
+#include <functional>
 #define newline printf("\n\n")
 using namespace std;
 
@@ -161,6 +162,7 @@ Node *search(Node *root, int data) {
 		printf("%d has been found by search()\n", data);
 		return root;
 	}
+	return nullptr;
 }
 
 int count(Node *root) {
@@ -258,17 +260,22 @@ void triple (Node *root) {
 }
 
 // Problem 5
-// NOTE: this functions needs the <memory> library in order to work properly
-
-// - we need to know whose the parent node
-// - we need to traverse the root node
-// - parameter root needs to be the original bst
-// - traverse the mirrored bst using a static 
-// └──> static auto origin = root;
-
 void mirror (Node *root) {
-	// static std::shared_ptr<Node> root;
-	// static auto origin = root;
+    if (root == nullptr) return;
+    Node *tmp;
+    tmp=nullptr;
+    mirror(root->left);
+    mirror(root->right);
+    tmp=root->left;
+    root->left=root->right;
+    root->right=tmp;
+}
+
+Node* getMirroredRoot() {
+	static Node* mirrored_root = nullptr; // Declare the mirrored_root variable as a static variable
+	extern void mirror(Node*);
+	mirror(nullptr);
+	return mirrored_root;
 }
 
 // Problem 6
@@ -335,19 +342,24 @@ Node* findParent(Node* root, int* childData) {
 
 // Problem 9
 Node* findChild(Node* root, int parentData) {
-    auto node = search(root, parentData);
-    auto res = new Node;
-	if (node->left && node->right) {
-		res = node->left;
-		res->right = node->right;
-	} else if (node->left) {
-		res = node->left;
-	} else if (node->right) {
-		res = node->right;
-	} else {
-		res = nullptr;
-	}
-	return res;
+    Node* node = search(root, parentData);
+    if (!node) {
+        return nullptr;
+    }
+    Node* res = new Node;
+    if(node->left && node->right) {
+        res->data = node->left->data;
+        res->right = new Node;
+        res->right->data = node->right->data;
+    } else if(node->left) {
+        res->data = node->left->data;
+    } else if(node->right) {
+        res->data = node->right->data;
+    } else {
+        delete res;
+        res = nullptr;
+    }
+    return res;
 }
 
 // Problem 10
@@ -434,6 +446,8 @@ int main() {
     printDepthFirst(root);
 	newline;
 
+	mirror(root); // unmirror the root
+
 	// Problem 6
 	printf("Checking if the tree is balanced...\n");
 	if(isBalancedHelper(root)) {
@@ -463,13 +477,12 @@ int main() {
 	newline;
 
 	// Problem 9
-	printf("Enter parent data: ");
-	int parent_data;
-	scanf("%d", &parent_data);
-	Node *child_node = findChild(root, parent_data);
-	while(child_node) {
-		printf("The child data of the parent: %d\n", child_node->data);
-		child_node = child_node->right;
+	printf("Enter Parent Data: ");
+	int parent_data; scanf("%d", &parent_data);
+	Node* child_node = findChild(root, parent_data);
+	printf("Child Node: %d", child_node->data);
+	if(child_node->right) {
+		printf("\nSecond Child: %d", child_node->right->data);
 	}
 	newline;
 
