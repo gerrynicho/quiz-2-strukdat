@@ -16,7 +16,7 @@ void printDepthFirst (Node *root) {
 	}
 }
 ```
-By simply checking if the root isn't NULL, we can know that the root has value so there won't be any errors while printing the value
+By simply checking if the root isn't NULL, we can know that the root has a value so there won't be any errors while printing the value
 Output:
 ![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/a89e975e-0356-4126-8f7c-7d833fc47a69)
 
