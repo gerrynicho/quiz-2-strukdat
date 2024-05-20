@@ -473,7 +473,6 @@ int main() {
     printDepthFirst(newRoot);
 	newline;
 
-	mirror(root); // unmirror the root
 
 	// Problem 6
 	printf("Checking if the tree is balanced...\n");
