@@ -269,12 +269,6 @@ void mirror (Node *root) {
     root->right=tmp;
 }
 
-Node* getMirroredRoot() {
-	static Node* mirrored_root = nullptr; // Declare the mirrored_root variable as a static variable
-	extern void mirror(Node*);
-	mirror(nullptr);
-	return mirrored_root;
-}
 
 // Problem 6
 int isBalancedHelper(Node *root) {
@@ -439,9 +433,44 @@ int main() {
 	newline;
 
 	// Problem 5
+	Queue* nodeQueue = createQ();
+    Queue* copyQueue = createQ();
+
+    Node* newRoot = new Node;
+    newRoot->data = root->data;
+    newRoot->left = nullptr;
+    newRoot->right = nullptr;
+
+	enQueue(nodeQueue, root);
+    enQueue(copyQueue, newRoot);
+
+    while (!isEmptyQ(nodeQueue)) {
+        Node* origNode = deQueue(nodeQueue);
+        Node* copyNode = deQueue(copyQueue);
+
+        if (origNode->left) {
+            Node* newLeft = new Node;
+            newLeft->data = origNode->left->data;
+            newLeft->left = nullptr;
+            newLeft->right = nullptr;
+            copyNode->left = newLeft;
+            enQueue(nodeQueue, origNode->left);
+            enQueue(copyQueue, newLeft);
+        }
+
+        if (origNode->right) {
+            Node* newRight = new Node;
+            newRight->data = origNode->right->data;
+            newRight->left = nullptr;
+            newRight->right = nullptr;
+            copyNode->right = newRight;
+            enQueue(nodeQueue, origNode->right);
+            enQueue(copyQueue, newRight);
+        }
+    }
     printf("Mirroring tree\nPrinting depth first traversal of the mirrored tree: \n");
-    mirror(root);
-    printDepthFirst(root);
+    mirror(newRoot);
+    printDepthFirst(newRoot);
 	newline;
 
 	mirror(root); // unmirror the root
