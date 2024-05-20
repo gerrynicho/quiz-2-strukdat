@@ -509,9 +509,11 @@ int main() {
 	printf("Enter Parent Data: ");
 	int parent_data; scanf("%d", &parent_data);
 	Node* child_node = findChild(root, parent_data);
-	printf("Child Node: %d", child_node->data);
-	if(child_node->right) {
-		printf("\nSecond Child: %d", child_node->right->data);
+	if(child_node) {
+		printf("Child Node: %d", child_node->data);
+		if(child_node->right) {
+			printf("\nSecond Child: %d", child_node->right->data);
+		}
 	}
 	newline;
 
