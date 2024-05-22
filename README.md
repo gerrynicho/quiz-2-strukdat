@@ -20,9 +20,9 @@ void printDepthFirst (Node *root) {
 ```
 By simply checking if the root's value is not `nullptr`, we can know that the root has a value so there won't be any errors while printing the value.
 Output:
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/a89e975e-0356-4126-8f7c-7d833fc47a69)
+![image](images/prob-1-input.png)
 Post-Order Printing:
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/89196f83-ffd3-400b-954f-678450ba481e)
+![image](images/prob-1-tree.png)
 
 Time Complexity: O(Number of Nodes)
 
@@ -88,7 +88,7 @@ void triple (Node *root) {
     triple(root->right);
 }
 ```
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/c770707c-591a-4fcf-bffe-1246e6d77818)
+![image](images/prob-4-input.png)
 
 Time Complexity: O(Number of Nodes)
 ## Problem 5
@@ -150,11 +150,11 @@ void mirror (Node *root) {
 }
 ```
 Always check for each node, if the node is ```nullptr``` we can break the recursion, that is the base case of the recursion.
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/9090ba39-f4d9-4337-ac72-b885ea7bcfc5)
+![image](images/prob-5-input.png)
 Original Binary Tree:
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/0e1aaed3-02fb-462a-8555-b2265f113eef)
+![image](images/prob-5-tree.png)
 Mirrored Binary Tree:
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/7ef77160-920d-4c2f-b187-09c9ae680815)
+![image](images/prob-5-mirror.png)
 Time Complexity: O(Number of Nodes)
 
 ## Problem 6
