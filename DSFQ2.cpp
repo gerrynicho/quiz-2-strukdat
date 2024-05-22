@@ -487,6 +487,7 @@ int main() {
 	printf("Deleting some nodes of the tree...\n");
 	delNode(root, 3);
 	delNode(root, 1);
+	delNode(root, 21);
 	printf("Printing the nodes of the tree...\n");
 	inOrder(root);
 	newline;
