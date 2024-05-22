@@ -473,7 +473,6 @@ int main() {
     printDepthFirst(newRoot);
 	newline;
 
-
 	// Problem 6
 	printf("Checking if the tree is balanced...\n");
 	if(isBalancedHelper(root)) {
@@ -485,11 +484,11 @@ int main() {
 	newline;
 
 	// Problem 7
-	printf("Deleting some nodes of the tree...");
+	printf("Deleting some nodes of the tree...\n");
 	delNode(root, 3);
 	delNode(root, 1);
-	newline;
-
+	delNode(root, 21);
+	printf("Printing the nodes of the tree...\n");
 	inOrder(root);
 	newline;
 	
@@ -519,6 +518,7 @@ int main() {
 
 	// Problem 10
 	Node *head = convertToDLL(root);
+	printf("Printing the traversal of the doubly linked list in preorder...\n");
 	preOrderDLL(head);
 
  	return 0;
