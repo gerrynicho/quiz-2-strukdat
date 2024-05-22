@@ -295,7 +295,7 @@ Time Complexity O(number of nodes)
 ## Problem 9
 Write a recursive function to find the children node of a given parent data.
 ### Solution
-With the structure of findChildren being only a single node and an integer, it can be quite difficult to retur 2 children if such node exists. To solve this dilemma, we can return a newly created node whose right variable points to another node that contains the data of the second child, imitating a linked list. And if only 1 child exist, than we can just return the left or right varible that is pointing to the child node, otherwise return a null pointer indicating that the parent node has no child node.
+With the structure of findChildren being only a single node and an integer, it can be quite difficult to return 2 children if such node exists. To solve this dilemma, we can return a newly created node whose right variable points to another node that contains the data of the second child, imitating a linked list. And if only 1 child exist, than we can just return the left or right varible that is pointing to the child node, otherwise return a null pointer indicating that the parent node has no child node.
 ```cpp
 Node* findChild(Node* root, int parentData) {
     Node* node = search(root, parentData);
