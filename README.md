@@ -69,7 +69,7 @@ Now when the root is equal to `nullptr`, we can assume that its value is 0 since
 ![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/f925952d-ed38-4108-bc11-871bcaa025a1)
 
 The sum for each nodes in the current tree:
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/46adab2f-04de-400b-9cd2-bf3bb74dc4c0)
+![image](images/prob-3-tree.png)
 
 Time Complexity: O(Number of Nodes)
 
