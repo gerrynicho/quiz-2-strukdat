@@ -493,6 +493,12 @@ int main() {
 	newline;
 	
 	// Problem 8
+	// to whoever is reading this,
+	// please keep in mind that i wrote this code before-
+	// problem 7 was fully finished
+	// so if the output of this program doesn't match the report
+	// it is because the tree itself is different
+	// note that I solved this problem before the data 21 was deleted but after data 3 was
 	printf("Enter child data: ");
 	int child_data;
 	scanf("%d", &child_data);
@@ -505,6 +511,12 @@ int main() {
 	newline;
 
 	// Problem 9
+	// to whoever is reading this,
+	// please keep in mind that i wrote this code before-
+	// problem 7 was fully finished
+	// so if the output of this program doesn't match the report
+	// it is because the tree itself is different
+	// note that I solved this problem before the data 21 was deleted but after data 3 was deleted
 	printf("Enter Parent Data: ");
 	int parent_data; scanf("%d", &parent_data);
 	Node* child_node = findChild(root, parent_data);
