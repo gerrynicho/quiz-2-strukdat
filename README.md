@@ -295,9 +295,34 @@ Time Complexity O(number of nodes)
 ## Problem 9
 Write a recursive function to find the children node of a given parent data.
 ### Solution
+With the structure of findChildren being only a single node and an integer, it can be quite difficult to retur 2 children if such node exists. To solve this dilemma, we can return a newly created node whose right variable points to another node that contains the data of the second child, imitating a linked list. And if only 1 child exist, than we can just return the left or right varible that is pointing to the child node, otherwise return a null pointer indicating that the parent node has no child node.
+```cpp
+Node* findChild(Node* root, int parentData) {
+    Node* node = search(root, parentData);
+    if (!node) {
+        return nullptr;
+    }
+    Node* res = new Node; // creates the node that will be returned
+    if(node->left && node->right) {
+        res->data = node->left->data; // the left child
+        res->right = new Node; // preparation for the right child
+        res->right->data = node->right->data; // the right child
+    } else if(node->left) {
+        res->data = node->left->data;
+    } else if(node->right) {
+        res->data = node->right->data;
+    } else {
+        delete res;
+        res = nullptr;
+    }
+    return res;
+}
+
+```
 ![prob-8-bst](./images/prob-8-bst.png)
 For problem 9, the current binary search tree will look like the image above
 ![prob-9](./images/prob-9.png)
+Time Complexity O(number of nodes)
 
 ## Problem 10
 Write a recursive function to convert the binary tree to a doubly linked list in place. The left pointer of the tree should act as the previous pointer and the right pointer should act as the next pointer.
