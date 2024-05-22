@@ -171,11 +171,42 @@ After `root` is already pointing to the node that is going to be deleted, it wil
 
 ## Problem 8
 Write a recursive function to find the parent node of a given child data.
-
 ### Solution
+With the structure of findParent being only a node and an integer, it can be quite difficult to know which parent the child is in. To solve this issue, we can use the `static` keyword where it declares the variable only once and the value of the variable will be retained between function calls. We can declare a static variable named `parent` (`static Node* parent = nullptr;`) to keep track of the parent of the node that the `Node *root` is in. In each function call, we update the static parent variable to match the current node so we know who the parent is for the root's children node. But before we reassign the parent variable, we need to check if the current node is the child node that we are looking for. If it is, we don't need to update the parent variable and can return the parent variable. If it isn't the child node, we update the parent variable to the current node and recursively call the function on the left or right subtree depending on the value of the child node compared to the current node's value. If the child node is not found in the tree, we return `nullptr` to indicate that the data of the childData is not in the binary search tree.
+```cpp
+Node* findParent(Node* root, int* childData) {
+	static Node* parent = nullptr; // first declaration of parent is nullptr
+	if (root) {
+		if(root->data > *childData){
+			parent = root;
+			findParent(root->left, childData);
+		} else if (root->data < *childData) {
+			parent = root;
+			findParent(root->right, childData);
+		} else { // if the data matches the childData
+			return parent;
+		}
+		return parent;
+	}
+	return nullptr;
+}
+
+// int main() {
+//  ...
+//  Node *parent_node = findParent(root, &child_data);
+//  if(parent_node) {
+//      printf("The parent data of the child: %d", parent_node->data);
+//  } else {
+//  	printf("Node has no parent/No such node");
+//  }
+//  ...
+// }
+```
+
 ![prob-8-bst](./images/prob-8-bst.png)
 For problem 8, the current binary search tree will look like the image above.
 ![prob-8](./images/prob-8.png)
+Time Complexity O(number of nodes)
 
 ## Problem 9
 Write a recursive function to find the children node of a given parent data.
