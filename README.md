@@ -86,6 +86,67 @@ void triple (Node *root) {
 ![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/c770707c-591a-4fcf-bffe-1246e6d77818)
 
 Time Complexity: O(Number of Nodes)
+## Problem 5
+Write a recursive function to create a mirror image of the binary tree.
+
+### Solution
+The problem wants us to **create** a mirror image of the binary tree.
+The first step to solve this problem is to copy the binary tree, by traversing the tree by breadth or its levels we can make a copy of a tree, use a classic Breadth First Search algorithm to copy the tree iteratively.
+```cpp
+        Queue* nodeQueue = createQ();
+        Queue* copyQueue = createQ();
+
+        Node* newRoot = new Node;
+        newRoot->data = root->data;
+        newRoot->left = nullptr;
+        newRoot->right = nullptr;
+
+        enQueue(nodeQueue, root);
+        enQueue(copyQueue, newRoot);
+
+        while (!isEmptyQ(nodeQueue)) {
+            Node* origNode = deQueue(nodeQueue);
+            Node* copyNode = deQueue(copyQueue);
+
+            if (origNode->left) {
+                Node* newLeft = new Node;
+                newLeft->data = origNode->left->data;
+                newLeft->left = nullptr;
+                newLeft->right = nullptr;
+                copyNode->left = newLeft;
+                enQueue(nodeQueue, origNode->left);
+                enQueue(copyQueue, newLeft);
+            }
+
+            if (origNode->right) {
+                Node* newRight = new Node;
+                newRight->data = origNode->right->data;
+                newRight->left = nullptr;
+                newRight->right = nullptr;
+                copyNode->right = newRight;
+                enQueue(nodeQueue, origNode->right);
+                enQueue(copyQueue, newRight);
+            }
+        }
+```
+The algorithm starts by pushing the first value or the tree's root's value to the queue. Then we always check for the queue's size within the while loop. The first iteration we will pop the queue and then we check for the root's left and right child (if there's any). Then we will push the queue with the current left and right child, then the process goes on and on until there is the queue is empty which implies that we have visited all the nodes in the tree.
+
+Now for the problem itself, we just need to swap left and right child of all the nodes. We need to do a Post-Order traversal to solve the problem.
+```cpp
+void mirror (Node *root) {
+    if (root == nullptr) return;
+    Node *tmp;
+    tmp=nullptr;
+    mirror(root->left);
+    mirror(root->right);
+    tmp=root->left;
+    root->left=root->right;
+    root->right=tmp;
+}
+```
+Always check for each node, if the node is ```nullptr``` we can break the recursion, that is the base case of the recursion.
+![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/4308f781-a2fe-45b7-960e-6b49bfd62826)
+![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/200c4f42-b4e0-43fb-a3c9-2e155b309449)
 
 ## Problem 6
 Write a recursive function to check if the binary tree is height-balanced (the difference between the heights of the left and right subtrees of any node is not more than 1).
