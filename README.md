@@ -21,6 +21,8 @@ void printDepthFirst (Node *root) {
 By simply checking if the root's value is not `nullptr`, we can know that the root has a value so there won't be any errors while printing the value.
 Output:
 ![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/a89e975e-0356-4126-8f7c-7d833fc47a69)
+Post-Order Printing:
+![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/89196f83-ffd3-400b-954f-678450ba481e)
 
 Time Complexity: O(Number of Nodes)
 
@@ -65,6 +67,9 @@ int sumOfNodes(Node *root) {
 ```
 Now when the root is equal to `nullptr`, we can assume that its value is 0 since there is no root to begin with. That is the base case of the recursion. 
 ![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/f925952d-ed38-4108-bc11-871bcaa025a1)
+
+The sum for each nodes in the current tree:
+![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/46adab2f-04de-400b-9cd2-bf3bb74dc4c0)
 
 Time Complexity: O(Number of Nodes)
 
@@ -150,7 +155,7 @@ Original Binary Tree:
 ![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/0e1aaed3-02fb-462a-8555-b2265f113eef)
 Mirrored Binary Tree:
 ![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/7ef77160-920d-4c2f-b187-09c9ae680815)
-
+Time Complexity: O(Number of Nodes)
 
 ## Problem 6
 Write a recursive function to check if the binary tree is height-balanced (the difference between the heights of the left and right subtrees of any node is not more than 1).
