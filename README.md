@@ -149,21 +149,21 @@ Node *delNode(Node *root, int delData) {
     if(delData < root->data) {
         root->left = delNode(root->left, delData);
     }
-	else if(delData > root->data) {
+    else if(delData > root->data) {
         root->right = delNode(root->right, delData);
     }
-	else {
+    else {
         if(root->left == nullptr) {
             Node *temp = root;
             root = root->right;
             free(temp);
         }
-		else if(root->right == nullptr) {
+	else if(root->right == nullptr) {
             Node *temp = root;
             root = root->left;
             free(temp);
         }
-		else {
+	else {
             Node *temp = min(root->right);
             root->data = temp->data;
             root->right = delNode(root->right, temp->data);
@@ -224,7 +224,7 @@ void convertToDLLHelper(Node *root, Node **head, Node **prev) {
     if(*prev == nullptr) {
         *head = root;
     }
-	else {
+    else {
         root->left = *prev;
         (*prev)->right = root;
     }
