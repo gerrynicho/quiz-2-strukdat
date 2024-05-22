@@ -66,7 +66,7 @@ int sumOfNodes(Node *root) {
 }
 ```
 Now when the root is equal to `nullptr`, we can assume that its value is 0 since there is no root to begin with. That is the base case of the recursion. 
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/f925952d-ed38-4108-bc11-871bcaa025a1)
+![image](./images/prob-3-input.png)
 
 The sum for each nodes in the current tree:
 ![image](images/prob-3-tree.png)
@@ -197,11 +197,11 @@ It will create two variables which are `left` and `right` where both of the vari
 
 Below is the visualization of the current tree.
 
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/117896200/51798ee3-135e-4dfd-9291-977d07bfbb76)
+![image](./images/prob-6-tree.png)
 
 Because the left subtree and the right subtree have a height difference of more than 1, the tree is not balanced.
 
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/117896200/8c2c2ef9-38e9-4c4f-b0b0-977a84c80f51)
+![image](./images/prob-6-output.png)
 
 ## Problem 7
 Write a recursive function to delete a particular data.
@@ -249,9 +249,9 @@ After `root` is already pointing to the node that is going to be deleted, it wil
 
 After all the `delNode()` function calls in the main program, below is the visualization of the new tree.
 
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/117896200/82291f9a-e387-4d73-974e-e3cfd4dfdd53)
+![image](./images/prob-7-tree.png)
 
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/117896200/71dd5e7c-2bde-4180-89b7-cce36c26db72)
+![image](./images/prob-7-output.png)
 
 ## Problem 8
 Write a recursive function to find the parent node of a given child data.
@@ -362,6 +362,6 @@ void convertToDLLHelper(Node *root, Node **head, Node **prev) {
 
 `convertToDLL()` here will be used to declare `Node *head` and `Node *prev` as `nullptr` and will call `convertToDLLHelper()` using the previously declared variables. In the `convertToDLLHelper()` function, it will first traverse recursively to the left until the leftmost node using `convertToDLLHelper(root->left, head, prev)`. After that, if the `*prev` value is `nullptr`, it means that `root` is currently pointing to the leftmost node. So the `*head` can be set to the current node. Otherwise, it will link the current node (`*root`) with the previous node (`*prev`) by setting the `left` pointer of the current node to the previous node, and the `right` pointer of the previous node to the current node. `*prev` can then be updated to the current node to keep track of the last processed node. It will then recursively call the `convertToDLLHelper()` function on the right subtree to process nodes on the right.
 
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/117896200/36cf11e2-758a-484f-8d5c-96363c71fadc)
+![image](./images/prob-10-dll.png)
 
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/117896200/13dbab78-d31b-4a0f-8ab7-7347fde713c4)
+![image](./images/prob-10-output.png)
