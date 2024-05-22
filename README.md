@@ -145,8 +145,12 @@ void mirror (Node *root) {
 }
 ```
 Always check for each node, if the node is ```nullptr``` we can break the recursion, that is the base case of the recursion.
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/4308f781-a2fe-45b7-960e-6b49bfd62826)
-![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/200c4f42-b4e0-43fb-a3c9-2e155b309449)
+![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/9090ba39-f4d9-4337-ac72-b885ea7bcfc5)
+Original Binary Tree:
+![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/0e1aaed3-02fb-462a-8555-b2265f113eef)
+Mirrored Binary Tree:
+![image](https://github.com/gerrynicho/quiz-2-strukdat/assets/105376097/7ef77160-920d-4c2f-b187-09c9ae680815)
+
 
 ## Problem 6
 Write a recursive function to check if the binary tree is height-balanced (the difference between the heights of the left and right subtrees of any node is not more than 1).
