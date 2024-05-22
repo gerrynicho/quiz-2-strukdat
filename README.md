@@ -93,32 +93,32 @@ Write a recursive function to create a mirror image of the binary tree.
 The problem wants us to **create** a mirror image of the binary tree.
 The first step to solve this problem is to copy the binary tree, by traversing the tree by breadth or its levels we can make a copy of a tree, use a classic Breadth First Search algorithm to copy the tree iteratively.
 ```cpp
-        Queue* nodeQueue = createQ();
-        Queue* copyQueue = createQ();
+Queue* nodeQueue = createQ();
+Queue* copyQueue = createQ();
 
-        Node* newRoot = new Node;
-        newRoot->data = root->data;
-        newRoot->left = nullptr;
-        newRoot->right = nullptr;
+Node* newRoot = new Node;
+newRoot->data = root->data;
+newRoot->left = nullptr;
+newRoot->right = nullptr;
 
-        enQueue(nodeQueue, root);
-        enQueue(copyQueue, newRoot);
+enQueue(nodeQueue, root);
+enQueue(copyQueue, newRoot);
 
-        while (!isEmptyQ(nodeQueue)) {
-            Node* origNode = deQueue(nodeQueue);
-            Node* copyNode = deQueue(copyQueue);
+while (!isEmptyQ(nodeQueue)) {
+	Node* origNode = deQueue(nodeQueue);
+	Node* copyNode = deQueue(copyQueue);
 
-            if (origNode->left) {
-                Node* newLeft = new Node;
-                newLeft->data = origNode->left->data;
-                newLeft->left = nullptr;
+	if (origNode->left) {
+		Node* newLeft = new Node;
+		newLeft->data = origNode->left->data;
+		newLeft->left = nullptr;
                 newLeft->right = nullptr;
                 copyNode->left = newLeft;
                 enQueue(nodeQueue, origNode->left);
                 enQueue(copyQueue, newLeft);
-            }
+	}
 
-            if (origNode->right) {
+	if (origNode->right) {
                 Node* newRight = new Node;
                 newRight->data = origNode->right->data;
                 newRight->left = nullptr;
@@ -126,8 +126,8 @@ The first step to solve this problem is to copy the binary tree, by traversing t
                 copyNode->right = newRight;
                 enQueue(nodeQueue, origNode->right);
                 enQueue(copyQueue, newRight);
-            }
-        }
+	}
+}
 ```
 The algorithm starts by pushing the first value or the tree's root's value to the queue. Then we always check for the queue's size within the while loop. The first iteration we will pop the queue and then we check for the root's left and right child (if there's any). Then we will push the queue with the current left and right child, then the process goes on and on until there is the queue is empty which implies that we have visited all the nodes in the tree.
 
